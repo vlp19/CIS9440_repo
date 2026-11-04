@@ -11,7 +11,6 @@ cleaned AS (
       * EXCEPT (
           job_filing_number,
           filing_date,
-          job_status,
           borough,
           zip_code,
           house_number,
