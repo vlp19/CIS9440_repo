@@ -6,8 +6,6 @@ WITH source AS (
 
 cleaned AS (
    SELECT
-       -- Get all columns from source, except ones we're transforming below
-       -- To do cleaning on them or explicitly cast them as types just in case
        * EXCEPT (
            current_status_date,
            borough,
@@ -50,7 +48,7 @@ cleaned AS (
 
        
        CAST(latitude AS DECIMAL) AS latitude,
-       CAST(incident_dwelling_units AS INT64) AS existing_dwelling_units,
+       CAST(existing_dwelling_units AS INT64) AS existing_dwelling_units,
        CAST(proposed_height AS DECIMAL) AS proposed_height,
 
        -- Clearer column name as well for this one
