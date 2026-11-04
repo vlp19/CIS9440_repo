@@ -27,12 +27,12 @@ cleaned AS (
 
        -- Location - clean zip code, handling several common zip code data problems
        CASE
-            WHEN UPPER(TRIM(CAST(COALESCE(zip, postcode) AS STRING))) IN ('N/A', 'NA', 'NONE') THEN NULL
-            WHEN LENGTH(CAST(COALESCE(zip, postcode) AS STRING)) = 5 THEN CAST(COALESCE(zip, postcode) AS STRING)
-            WHEN LENGTH(CAST(COALESCE(zip, postcode) AS STRING)) = 9 THEN CAST(COALESCE(zip, postcode) AS STRING)
-            WHEN LENGTH(CAST(COALESCE(zip, postcode) AS STRING)) = 10
-                AND REGEXP_CONTAINS(CAST(COALESCE(zip, postcode) AS STRING), r'^\d{5}-\d{4}')
-            THEN CAST(COALESCE(zip, postcode) AS STRING)
+            WHEN UPPER(TRIM(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) IN ('N/A', 'NA', 'NONE') THEN NULL
+            WHEN LENGTH(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) = 5 THEN COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))
+            WHEN LENGTH(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) = 9 THEN COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))
+            WHEN LENGTH(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) = 10
+                AND REGEXP_CONTAINS(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING)), r'^\d{5}-\d{4}')
+            THEN COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))
             ELSE NULL
         END AS zip,
 
@@ -47,9 +47,9 @@ cleaned AS (
        END AS borough,
 
        
-       CAST(latitude AS DECIMAL) AS latitude,
+       CAST(latitude AS FLOAT64) AS latitude,
        CAST(existing_dwelling_units AS INT64) AS existing_dwelling_units,
-       CAST(proposed_height AS DECIMAL) AS proposed_height,
+       CAST(proposed_height AS INT64) AS proposed_height,
 
        -- Clearer column name as well for this one
        UPPER(TRIM(CAST(filing_status AS STRING))) AS filing_status,
