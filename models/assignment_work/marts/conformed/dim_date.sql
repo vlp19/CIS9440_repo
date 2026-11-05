@@ -2,11 +2,11 @@
 
 -- Build initial CTEs for Jinja syntax to make refs to staging models easier
 WITH stg_311 AS (
-    SELECT * FROM {{ ref('stg_nyc_dob_job_filings') }}
+    SELECT * FROM {{ ref('stg_nyc_311_dot') }}
 ),
 
 stg_dob AS (
-    SELECT * FROM {{ ref('stg_nyc_311_dot') }}
+    SELECT * FROM {{ ref('stg_nyc_dob_job_filings') }}
 ),
 
 -- Then union dates from the staging data together, collecting all poss dates
