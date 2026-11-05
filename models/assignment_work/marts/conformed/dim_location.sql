@@ -12,7 +12,9 @@ stg_dob AS (
 all_locations AS (
 
     SELECT DISTINCT
-        borough, council_district, zip
+        borough, 
+        CAST(council_district AS STRING) AS council_district, 
+        zip
     FROM stg_311
     WHERE borough IS NOT NULL
        OR council_district IS NOT NULL
@@ -21,7 +23,9 @@ all_locations AS (
     UNION DISTINCT
 
     SELECT DISTINCT
-        borough, council_district, zip
+        borough, 
+        CAST(council_district AS STRING) AS council_district, 
+        zip
     FROM stg_dob
     WHERE borough IS NOT NULL
        OR council_district IS NOT NULL
