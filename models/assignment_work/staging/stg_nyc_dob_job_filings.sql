@@ -15,7 +15,9 @@ cleaned AS (
            existing_dwelling_units,
            proposed_height,
            filing_status,
-           building_type
+           building_type,
+           bin,
+           bbl
        ),
 
        -- Identifiers
@@ -27,7 +29,7 @@ cleaned AS (
 
        -- Location - clean zip code, handling several common zip code data problems
        CASE
-            WHEN UPPER(TRIM(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) IN ('N/A', 'NA', 'NONE') THEN NULL
+            WHEN UPPER(TRIM(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING)))) IN ('N/A', 'NA', 'NONE') THEN NULL
             WHEN LENGTH(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) = 5 THEN COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))
             WHEN LENGTH(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) = 9 THEN COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))
             WHEN LENGTH(COALESCE(CAST(zip AS STRING), CAST(postcode AS STRING))) = 10
