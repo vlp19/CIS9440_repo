@@ -1,2 +1,20 @@
-select * 
+select
+    summons_number,
+    issue_date,
+    plate,
+    state,
+    license_type,
+    violation,
+    violation_status,
+    county as borough,
+    precinct,
+    issuing_agency,
+    fine_amount,
+    penalty_amount,
+    amount_due,
+    interest_amount,
+    judgment_entry_date,
+    payment_amount,
+    reduction_amount,
+    violation_time
 from {{ source('nyc_parking', 'nyc_parking_camera_violations') }}
