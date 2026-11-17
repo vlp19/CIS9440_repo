@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: nyc_311
+    schema: nyc_homework_raw_data
+    tables:
+      - name: source_311_illegalparking_data
+
+  - name: nyc_parking
+    schema: nyc_parking_data
+    tables:
+      - name: nyc_parking_camera_violations
